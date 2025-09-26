@@ -71,6 +71,28 @@ func FindKeyboardDevice() string {
 	return ""
 }
 
+// FindKeyboardDeviceByName find specific keyboard by it's name
+func FindKeyboardDeviceByName(kbName string) string {
+	path := "/sys/class/input/event%d/device/name"
+	resolved := "/dev/input/event%d"
+
+	for i := 0; i < 255; i++ {
+		buff, err := ioutil.ReadFile(fmt.Sprintf(path, i))
+		if err != nil {
+			continue
+		}
+
+		deviceName := string(buff)
+		deviceName = strings.TrimSpace(deviceName)
+		if deviceName == kbName {
+			return fmt.Sprintf(resolved, i)
+		}
+
+	}
+
+	return ""
+}
+
 // Like FindKeyboardDevice, but finds all devices which contain keyword 'keyboard'
 // Returns an array of file paths which contain keyboard events
 func FindAllKeyboardDevices() []string {
