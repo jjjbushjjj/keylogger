@@ -30,7 +30,7 @@ func (d *devices) hasDevice(str string) bool {
 
 // use lowercase names for devices, as we turn the device input name to lower case
 var restrictedDevices = devices{"mouse"}
-var allowedDevices = devices{"keyboard", "liliums lily58"}
+var allowedDevices = devices{"liliums lily58"}
 
 // New creates a new keylogger for a device path
 func New(devPath string) (*KeyLogger, error) {
